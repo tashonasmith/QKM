@@ -1,3 +1,11 @@
 .list-group-item {
   line-height: 2.5;
 }
+
+.label {
+  margin: 10px;
+}
+
+.notUser {
+  margin-left: 20%;
+}

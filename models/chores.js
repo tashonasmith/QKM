@@ -1,4 +1,4 @@
-module.exports = function(sequelize, DataTypes) {
+/* module.exports = function(sequelize, DataTypes) {
     var Chores = sequelize.define('Chores', {
       chore: DataTypes.STRING
     });
@@ -11,4 +11,4 @@ module.exports = function(sequelize, DataTypes) {
       });
     };
     return Chores;
-};
+}; */
