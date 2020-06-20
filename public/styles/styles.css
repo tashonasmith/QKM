@@ -34,17 +34,21 @@ body {
 }
 
 h1 {
-    font-family: 'Suez One', serif;
     color: teal;
     font-size: 80px;
+    font-family: 'Luckiest Guy', cursive;
 }
 
 h2 {
-    margin: 0px 0px 64px 0px;
+    margin: 64px 0px 24px 0px;
+    /* font-family: 'Raleway', sans-serif; */
+    /* font-family: 'Luckiest Guy', cursive; */
+    font-family: 'Segoe UI Black', 'Gill Sans Ultra Bold', sans-serif;
+    color: teal;
 }
 
 h5 {
-    font-family: sans-serif;
+    /* font-family: 'Raleway', sans-serif; */
     color: teal;
 }
 
@@ -54,6 +58,8 @@ footer {
     padding: 36px;
     background-color: cadetblue;
     font-style: italic;
+    font-family: 'Raleway', sans-serif;
+    color: azure;
 }
 
 
