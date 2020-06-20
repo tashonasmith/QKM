@@ -1,5 +1,32 @@
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config();
+}
+
+var express = require('express');
+var app = express();
+
 var db = require("../models");
 var path = require('path');
+var passport = require('passport');
+var flash = require('express-flash');
+var session = require('express-session');
+var initializePassport = require("../config/passport-config");
+const { userInfo } = require('os');
+
+app.use(flash());
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false
+
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+
+
+initializePassport(passport);
+   
+
 
 module.exports = function(app) {
     // Load login page
@@ -17,10 +44,11 @@ module.exports = function(app) {
         res.sendFile(path.join(__dirname, "../views/register.html"));
     });
 
-    app.post("/auth/login", (req, res) => {
-        console.log(req.body);
-        res.send("OK");
-    });
+  app.post("/auth/login", passport.authenticate('local', {
+    successRedirect: '/',
+    failureRedirect: '/login',
+    //failureFlash: true
+  }));
 
     app.post("/auth/register", (req, res) => {
         console.log(req.body);
