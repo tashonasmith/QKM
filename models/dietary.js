@@ -5,7 +5,13 @@ module.exports = function(sequelize, DataTypes) {
       servings_eaten: DataTypes.INTEGER
     });
     Dietary.associate = function(models) {
-      models.Dietary.belongsTo(models.Kids, models.Users, {
+      models.Dietary.belongsTo(models.Kids, {
+        onDelete: 'CASCADE',
+        foreignKey: {
+          allowNull: false
+        }
+      });
+      models.Dietary.belongsTo(models.Users, {
         onDelete: 'CASCADE',
         foreignKey: {
           allowNull: false

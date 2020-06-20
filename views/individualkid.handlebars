@@ -1,0 +1,69 @@
+<img src="" alt=""> <!--LOGO IMAGE-->
+
+<div id="kidinfo" class="container"></div>
+  <img id="avatar" src="https://api.adorable.io/avatars/285/kid1.png" alt="kidavi">
+  <h1>{{Kid.dataValues.title}}</h1> <!--Kid Name, template info-->
+</div>
+
+<div id="timed-hw">
+  <h2>Timed Homework</h2>
+  <ul>
+      {{#each Kid.dataValues.Timedhws}}
+      <li>
+          Assignment: <p>{{Kid.dataValues.Timedhws.dataValues.assignment}}</p>
+          Minutes Required: <p>{{Kid.dataValues.Timedhws.dataValues.minutes_required}}</p>
+      </li>
+      {{/each}}
+  </ul>
+
+  <form action="/api/Timedhw" method="POST"> 
+	<input type="text" name="add-timed-hw" id="add-timed-hw" placeholder="Add timed homework">
+    <input type="number" name="num-minutes" id="num-minutes" placeholder="# of minutes required">
+
+	<button type="submit" id="submit-timedhw">Add</button>
+  </form>
+</div>  
+
+<div id="tasked-hw">
+  <h2>Tasked Homework</h2>
+  <ul>
+        
+        <button type="submit" id="taskedhw-done">Done</button> <!--needed for each task-->
+  </ul>
+
+  <form action="/api/burgers" method="POST"> <!--action will need to be updated-->
+	<input type="text" name="add-tasked-hw" id="add-tasked-hw" placeholder="Add homework task">
+
+	<button type="submit" id="submit-taskedhw">Add</button>
+  </form>
+</div>  
+
+<div id="chores">
+  <h2>Chores</h2>
+  <ul>
+      
+        <button type="submit" id="chore-done">Done</button> <!--needed for each task-->
+  </ul>
+
+  <form action="/api/burgers" method="POST"> <!--action will need to be updated-->
+	<input type="text" name="add-chores" id="add-chores" placeholder="Add a chore">
+
+	<button type="submit" id="submit-chore">Add</button>
+  </form>
+</div>  
+
+<div id="dietary">
+  <h2>Dietary</h2>
+  <ul>
+      
+          <button type="submit" id="submit-food">Add Serving Eaten</button> <!--This is needed for each food item-->
+          <button type="submit" id="food-done">All required servings eaten!</button> <!--needed for each task-->
+  </ul>
+
+  <form action="/api/burgers" method="POST"> <!--action will need to be updated-->
+	<input type="text" name="add-food" id="add-food" placeholder="Add a Food Type">
+    <input type="number" name="add-serving-req" id="add-serving-req" placeholder="# of servings required">
+
+	<button type="submit" id="submit-food">Add</button>
+  </form>
+</div>  

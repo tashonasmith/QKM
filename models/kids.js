@@ -7,11 +7,23 @@ module.exports = function(sequelize, DataTypes) {
     });
   
     Kids.associate = function(models) {
-      models.Kids.belongsTo(models.User, {
+      models.Kids.belongsTo(models.Users, {
         onDelete: 'CASCADE',
         foreignKey: {
           allowNull: false,
         },
+      });
+      models.Kids.hasMany(models.Timedhw, {
+        onDelete: 'CASCADE',
+      });
+      models.Kids.hasMany(models.Taskedhw, {
+        onDelete: 'CASCADE',
+      });
+      models.Kids.hasMany(models.Chores, {
+        onDelete: 'CASCADE',
+      });
+      models.Kids.hasMany(models.Dietary, {
+        onDelete: 'CASCADE',
       });
     };
   
