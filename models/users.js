@@ -11,7 +11,23 @@ module.exports = function(sequelize, DataTypes) {
     //code to put foreign key on the “belongsTo” tables
     Users.associate = function(models) {
       // eslint-disable-next-line prettier/prettier
-      Users.hasMany(models.Kids, models.Timedhw, models.Taskedhw, models.Chores, models.Dietary, {
+      Users.hasMany(models.Kids, {
+        onDelete: "CASCADE"
+      }
+      );
+      Users.hasMany(models.Timedhw, {
+        onDelete: "CASCADE"
+      }
+      );
+      Users.hasMany(models.Taskedhw, {
+        onDelete: "CASCADE"
+      }
+      );
+      Users.hasMany(models.Chores, {
+        onDelete: "CASCADE"
+      }
+      );
+      Users.hasMany(models.Dietary, {
         onDelete: "CASCADE"
       }
       );

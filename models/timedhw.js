@@ -10,7 +10,13 @@ module.exports = function(sequelize, DataTypes) {
 
   //code to put foreign key on the “belongsTo” tables
   Timedhw.associate = function(models) {
-    models.Timedhw.belongsTo(models.Kids, models.Users, {
+    models.Timedhw.belongsTo(models.Kids, {
+      onDelete: "CASCADE",
+      foreignKey: {
+        allowNull: false
+      }
+    });
+    models.Timedhw.belongsTo(models.Users, {
       onDelete: "CASCADE",
       foreignKey: {
         allowNull: false
