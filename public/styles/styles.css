@@ -13,9 +13,12 @@
 
 /* styling initially created for index.html BEGIN */
 
-.container {
+.container-fluid {
     text-align: center;
     justify-content: space-between;
+}
+
+body {
     background-color: azure;
 }
 
@@ -36,6 +39,10 @@ h1 {
     font-size: 80px;
 }
 
+h2 {
+    margin: 0px 0px 64px 0px;
+}
+
 h5 {
     font-family: sans-serif;
     color: teal;
@@ -47,4 +54,31 @@ footer {
     padding: 36px;
     background-color: cadetblue;
     font-style: italic;
+}
+
+
+/*styling for nav bar BEGIN*/
+
+.fa-1x {
+    font-size: 1.5rem;
+}
+
+.navbar-toggler.toggler-example {
+    cursor: pointer;
+}
+
+.dark-blue-text {
+    color: #0A38F5;
+}
+
+.dark-pink-text {
+    color: #AC003A;
+}
+
+.dark-amber-text {
+    color: #ff6f00;
+}
+
+.dark-teal-text {
+    color: #004d40;
 }
