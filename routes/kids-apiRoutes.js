@@ -7,14 +7,14 @@ module.exports = function(app) {
     // Get all kids
     app.get("/api/kids", function(req, res) {
         db.Kids.findAll({
-            //where: query - needed?
+            //where: query - needed?--not needed - would be empty ojbect
         }).then(function(dbKids) {
             res.json(dbKids);
         });
     });
 
     // Create a new kid
-    app.post("/api/examples", function(req, res) {
+    app.post("/api/kids", function(req, res) {
         db.Kids.create(req.body).then(function(dbKids) {
             res.json(dbKids);
         });

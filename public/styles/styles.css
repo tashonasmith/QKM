@@ -42,7 +42,9 @@ h1 {
 h2 {
     margin: 64px 0px 24px 0px;
     /* font-family: 'Raleway', sans-serif; */
-    font-family: 'Luckiest Guy', cursive;
+    /* font-family: 'Luckiest Guy', cursive; */
+    font-family: 'Segoe UI Black', 'Gill Sans Ultra Bold', sans-serif;
+    color: teal;
 }
 
 h5 {
