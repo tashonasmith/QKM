@@ -32,11 +32,15 @@ module.exports = function(app) {
       where: {
         id: req.params.id
       },
-      include: [db.Timedhw] 
+      include: [db.Timedhw, db.Taskedhw, db.Chores, db.Dietary] 
     }).then(function(dbKids) {
-      console.log(dbKids.dataValues.Timedhws[0].dataValues.assignment)
-      console.log(dbKids.dataValues.Timedhws[0].dataValues.minutes_required)
-      console.log(dbKids.dataValues.Timedhws[0])
+      // console.log(dbKids.dataValues.Timedhws[0].dataValues.assignment)
+      // console.log(dbKids.dataValues.Timedhws[0].dataValues.minutes_required)
+      console.log(dbKids.dataValues.Timedhws[0]);
+      console.log(dbKids.dataValues.Taskedhws[0]);
+      console.log(dbKids.dataValues.Chores[0]);
+      console.log(dbKids.dataValues.Dietaries[0]);
+      // console.log(dbKids)
       // console.log(dbKids.dataValues.Timedhws.Timedhw)
       res.render("individualkid", {
           Kid: dbKids

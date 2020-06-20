@@ -1,7 +1,7 @@
 <img src="" alt=""> <!--LOGO IMAGE-->
 
 <div id="kidinfo" class="container"></div>
-  <img id="avatar" src="https://api.adorable.io/avatars/285/kid1.png" alt="kidavi">
+  <img id="avatar" src="https://api.adorable.io/avatars/150/{{Kid.dataValues.id}}.png" alt="kidavi">
   <h1>{{Kid.dataValues.title}}</h1> <!--Kid Name, template info-->
 </div>
 
@@ -10,8 +10,9 @@
   <ul>
       {{#each Kid.dataValues.Timedhws}}
       <li>
-          Assignment: <p>{{Kid.dataValues.Timedhws.dataValues.assignment}}</p>
-          Minutes Required: <p>{{Kid.dataValues.Timedhws.dataValues.minutes_required}}</p>
+          Assignment: <p>{{dataValues.assignment}}</p>
+          Minutes Required: <p>{{dataValues.minutes_required}}</p>
+          <button type="submit" id="Timedhws-done">Done</button>
       </li>
       {{/each}}
   </ul>
@@ -27,11 +28,16 @@
 <div id="tasked-hw">
   <h2>Tasked Homework</h2>
   <ul>
-        
-        <button type="submit" id="taskedhw-done">Done</button> <!--needed for each task-->
+        {{#each Kid.dataValues.Taskedhws}}
+      <li>
+          Subject: <p>{{dataValues.subject}}</p>
+          Assignment: <p>{{dataValues.assignment}}</p>
+          <button type="submit" id="taskedhw-done">Done</button> <!--needed for each task-->
+      </li>
+      {{/each}}
   </ul>
 
-  <form action="/api/burgers" method="POST"> <!--action will need to be updated-->
+  <form action="/api/Taskedhw" method="POST"> <!--action will need to be updated-->
 	<input type="text" name="add-tasked-hw" id="add-tasked-hw" placeholder="Add homework task">
 
 	<button type="submit" id="submit-taskedhw">Add</button>
@@ -41,8 +47,12 @@
 <div id="chores">
   <h2>Chores</h2>
   <ul>
-      
-        <button type="submit" id="chore-done">Done</button> <!--needed for each task-->
+       {{#each Kid.dataValues.Chores}}
+      <li>
+          Chore: <p>{{dataValues.chore}}</p>
+          <button type="submit" id="chore-done">Done</button> <!--needed for each task-->
+      </li>
+      {{/each}}
   </ul>
 
   <form action="/api/burgers" method="POST"> <!--action will need to be updated-->
@@ -55,9 +65,15 @@
 <div id="dietary">
   <h2>Dietary</h2>
   <ul>
-      
-          <button type="submit" id="submit-food">Add Serving Eaten</button> <!--This is needed for each food item-->
-          <button type="submit" id="food-done">All required servings eaten!</button> <!--needed for each task-->
+           {{#each Kid.dataValues.Dietaries}}
+      <li>
+          Food: <p>{{dataValues.food}}</p>
+          Servings Required: <p>{{dataValues.servings_required}}</p>
+          Servings Eaten: <p>{{dataValues.servings_eaten}}</p>
+           <button type="submit" id="submit-food">Add Serving Eaten</button> <!--This is needed for each food item-->
+          <button type="submit" id="food-done">All required servings eaten!</button>
+      </li>
+      {{/each}}      
   </ul>
 
   <form action="/api/burgers" method="POST"> <!--action will need to be updated-->
