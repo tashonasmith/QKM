@@ -106,12 +106,11 @@ module.exports = function(app) {
       console.log("Food successfully deleted")
     });
   });
-  app.post("/api/Timedhw", function(req, res) {
+  app.post("/api/kids/:id/Timedhw", function(req, res) {
     console.log(req.body)
     db.Timedhw.create({
       assignment: req.body.assignment,
       minutes_required: req.body.minutes_required,
-      UserId: req.body.user_id
     }).then(function(dbTimedhw) {
       res.json(dbTimedhw);
     });
