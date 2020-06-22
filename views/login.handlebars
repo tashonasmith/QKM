@@ -15,12 +15,10 @@
         <hr>
         <div class="container">
             <form action="auth/login" method="POST">
-                <label class="label" for="email">Email</label><input type="email" name="email">
-                <label class="label" for="password">Password</label><input type="password" name="password">
-                <button type="submit" class="btn btn-primary">Submit</button>
-                <div class="notUser label">
-                    <p><a href="/register">Not registered? Sign up here</a></p>
-                </div>
+            <label class="label" for="email">Email</label><input autocomplete="off" type="email" name="email">
+            <label class="label" for="password"">Password</label><input type="password" name="password">
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <div class="notUser label"><p><a href="/register">Not registered? Sign up here</a></p></div>
             </form>
         </div>
     </div>
