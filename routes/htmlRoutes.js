@@ -28,9 +28,20 @@ module.exports = function(app) {
     });
 
     //Load index/landing page
+    // app.get("/index", function(req, res) {
+    //     res.sendFile(path.join(__dirname, "../views/layouts/index.html"));
+    // });
+
     app.get("/index", function(req, res) {
-        res.sendFile(path.join(__dirname, "../views/layouts/index.html"));
+        // var user =
+        // res.sendFile(path.join(__dirname, "../views/index.html"));
+        db.Kids.findAll({}).then(function(dbKids) {
+            res.render("home", {
+                Kids: dbKids
+            });
+        });
     });
+    //this is index outside loyouts
 
     // Load example page and pass in an example by id
     app.get("/example/:id", function(req, res) {
