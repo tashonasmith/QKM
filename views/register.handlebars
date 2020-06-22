@@ -8,16 +8,20 @@
     <title>Login</title>
     <div class="jumbotron jumbotron-fluid">
         <div class="container">
-          <h1 class="display-4">Quarantine Kids Manager</h1>
-          <p class="lead">Idle hands are the devil's playthings</p>
+            <h1 class="display-4">Create an account</h1>
+          <p class="lead">Registration is free, but if you wanted to send us a million dollars, we wouldn't say no...</p>
         </div>
         <hr>
         <div class="container">
-            <form action="auth/login" method="POST">
+            <form action="auth/register" method="POST">
             <label class="label" for="email">Email</label><input type="email" name="email">
             <label class="label" for="password"">Password</label><input type="password" name="password">
+            <label class="label" for="rPassword">Re-enter Password</label><input type="password" name="rPassword">
             <button type="submit" class="btn btn-primary">Submit</button>
-            <div class="notUser label"><p><a href="/register">Not registered? Sign up here</a></p></div>
+            <div class="notUser label"><p><a href="/">Back to login</a></p></div>
+            {{#if error}}
+    <div class="alert alert-danger">{{error}}{{msg}}</div>
+{{/if}}
             </form>
         </div>
       </div>
