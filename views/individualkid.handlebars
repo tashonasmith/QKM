@@ -12,16 +12,16 @@
       <li>
           Assignment: <p>{{dataValues.assignment}}</p>
           Minutes Required: <p>{{dataValues.minutes_required}}</p>
-          <button type="submit" id="Timedhws-done">Done</button>
+          <button data-timedhwid="{{this.dataValues.id}}" type="submit" class="Timedhws-done">Done</button>
       </li>
       {{/each}}
   </ul>
 
-  <form action="/api/Timedhw" method="POST"> 
-	<input type="text" name="add-timed-hw" id="add-timed-hw" placeholder="Add timed homework">
-    <input type="number" name="num-minutes" id="num-minutes" placeholder="# of minutes required">
+  <form action="/api/Timedhw/" method="POST"> 
+	<input type="text" name="assignment" id="assignment" placeholder="Add timed homework">
+    <input type="number" name="minutes_required" id="minutes_required" placeholder="# of minutes required">
 
-	<button type="submit" id="submit-timedhw">Add</button>
+	<button type="submit" class="submit-timedhw">Add</button>
   </form>
 </div>  
 
@@ -32,7 +32,7 @@
       <li>
           Subject: <p>{{dataValues.subject}}</p>
           Assignment: <p>{{dataValues.assignment}}</p>
-          <button type="submit" id="taskedhw-done">Done</button> <!--needed for each task-->
+          <button data-taskedhwid="{{this.dataValues.id}}" type="submit" class="taskedhw-done">Done</button> <!--needed for each task-->
       </li>
       {{/each}}
   </ul>
@@ -40,7 +40,7 @@
   <form action="/api/Taskedhw" method="POST"> <!--action will need to be updated-->
 	<input type="text" name="add-tasked-hw" id="add-tasked-hw" placeholder="Add homework task">
 
-	<button type="submit" id="submit-taskedhw">Add</button>
+	<button type="submit" class="submit-taskedhw">Add</button>
   </form>
 </div>  
 
@@ -50,12 +50,12 @@
        {{#each Kid.dataValues.Chores}}
       <li>
           Chore: <p>{{dataValues.chore}}</p>
-          <button type="submit" id="chore-done">Done</button> <!--needed for each task-->
+          <button data-choreid="{{this.dataValues.id}}" type="submit" class="chore-done">Done</button> <!--needed for each task-->
       </li>
       {{/each}}
   </ul>
 
-  <form action="/api/burgers" method="POST"> <!--action will need to be updated-->
+  <form action="/api/Chores" method="POST"> <!--action will need to be updated-->
 	<input type="text" name="add-chores" id="add-chores" placeholder="Add a chore">
 
 	<button type="submit" id="submit-chore">Add</button>
@@ -71,15 +71,88 @@
           Servings Required: <p>{{dataValues.servings_required}}</p>
           Servings Eaten: <p>{{dataValues.servings_eaten}}</p>
            <button type="submit" id="submit-food">Add Serving Eaten</button> <!--This is needed for each food item-->
-          <button type="submit" id="food-done">All required servings eaten!</button>
+          <button data-foodid="{{this.dataValues.id}}" type="submit" class="food-done">All required servings eaten!</button>
       </li>
       {{/each}}      
   </ul>
 
-  <form action="/api/burgers" method="POST"> <!--action will need to be updated-->
+  <form action="/api/Dietary" method="POST"> <!--action will need to be updated-->
 	<input type="text" name="add-food" id="add-food" placeholder="Add a Food Type">
     <input type="number" name="add-serving-req" id="add-serving-req" placeholder="# of servings required">
 
 	<button type="submit" id="submit-food">Add</button>
   </form>
 </div>  
+
+<script type="text/javascript">
+    $(".Timedhws-done").on("click", function (event) {
+      event.preventDefault();
+      var id = $(this).data("timedhwid");
+      console.log(id);
+      console.log(this);
+    
+      $.ajax({
+        method: "DELETE",
+        url: "/api/kids/" + {{Kid.dataValues.id}} + "/Timedhw/" + id
+      }).then(
+      function () {
+        console.log("Timedhw completed ", id);
+        location.reload();
+      });
+    });
+    $(".taskedhw-done").on("click", function (event) {
+      event.preventDefault();
+      var id = $(this).data("taskedhwid");
+      console.log(id);
+      console.log(this);
+    
+      $.ajax({
+        method: "DELETE",
+        url: "/api/kids/" + {{Kid.dataValues.id}} + "/Taskedhw/" + id
+      }).then(
+      function () {
+        console.log("Taskedhw completed ", id);
+        location.reload();
+      });
+    });
+    $(".chore-done").on("click", function (event) {
+      event.preventDefault();
+      var id = $(this).data("choreid");
+      console.log(id);
+      console.log(this);
+    
+      $.ajax({
+        method: "DELETE",
+        url: "/api/kids/" + {{Kid.dataValues.id}} + "/Chores/" + id
+      }).then(
+      function () {
+        console.log("Chore completed ", id);
+        location.reload();
+      });
+    });
+    $(".food-done").on("click", function (event) {
+      event.preventDefault();
+      var id = $(this).data("foodid");
+      console.log(id);
+      console.log(this);
+    
+      $.ajax({
+        method: "DELETE",
+        url: "/api/kids/" + {{Kid.dataValues.id}} + "/Dietary/" + id
+      }).then(
+      function () {
+        console.log("All Servings Eaten ", id);
+        location.reload();
+      });
+    });
+    $(".submit-timedhw").on("click", function(event) {
+        event.preventDefault();
+        $.ajax({
+          method: "POST",
+          url: "/api/Timedhw"
+        }).then(
+        function() {
+            location.reload();
+        })
+    })
+</script>

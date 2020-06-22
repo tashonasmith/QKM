@@ -15,8 +15,6 @@ const { userInfo } = require('os');
 
 //initializePassport(passport);
 
-
-
 module.exports = function (app) {
   // Load login page
   app.get("/", checkNotAuthenticated, function (req, res) {
@@ -38,6 +36,14 @@ module.exports = function (app) {
     failureRedirect: '/',
     failureFlash: true
   }));
+
+    //Load index/landing page
+    // app.get("/index", function(req, res) {
+    //     res.sendFile(path.join(__dirname, "../views/layouts/index.html"));
+    // });
+
+    
+
 
   function checkAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
@@ -92,6 +98,11 @@ module.exports = function (app) {
   //check to see if user is logged in, if so load index.html
   app.get("/index", checkAuthenticated, function (req, res) {
     res.sendFile(path.join(__dirname, "../views/index.html"));
+    db.Kids.findAll({}).then(function(dbKids) {
+      res.render("home", {
+          Kids: dbKids
+      });
+  });
   });
 
   // Load example page and pass in an example by id
