@@ -149,7 +149,7 @@
         event.preventDefault();
         $.ajax({
           method: "POST",
-          url: "/api/Timedhw"
+          url: "/api/users/:userid/kids/:kidid/Timedhw"
         }).then(
         function() {
             location.reload();
