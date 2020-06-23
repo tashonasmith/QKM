@@ -17,7 +17,7 @@
       {{/each}}
   </ul>
 
-  <form action="/api/Timedhw/" method="POST"> 
+  <form action="/api/users/:userid/kids/:kidid/Timedhw" method="POST"> 
 	<input type="text" name="assignment" id="assignment" placeholder="Add timed homework">
     <input type="number" name="minutes_required" id="minutes_required" placeholder="# of minutes required">
 
@@ -145,14 +145,4 @@
         location.reload();
       });
     });
-    $(".submit-timedhw").on("click", function(event) {
-        event.preventDefault();
-        $.ajax({
-          method: "POST",
-          url: "/api/users/:userid/kids/:kidid/Timedhw"
-        }).then(
-        function() {
-            location.reload();
-        })
-    })
 </script>
