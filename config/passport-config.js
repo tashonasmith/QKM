@@ -27,7 +27,7 @@ function initialize() {
     passport.serializeUser((user, done)=>done(null, user.id));
     passport.deserializeUser((id, done) => {
         return done(null, async () => {
-            var data = await db.Users.findOne({where: {id: user.id}});
+            var data = await db.Users.findOne({where: {id: id}});
             return data.id;
         });
     }); 
