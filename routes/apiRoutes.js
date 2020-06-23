@@ -26,26 +26,26 @@ var db = require("../models");
 
 //change to html route?
 module.exports = function(app) {
-  app.get("/api/kids/:id", function(req, res) {
-    db.Kids.findOne({
-      where: {
-        id: req.params.id
-      },
-      include: [db.Timedhw, db.Taskedhw, db.Chores, db.Dietary]
-    }).then(function(dbKids) {
-      // console.log(dbKids.dataValues.Timedhws[0].dataValues.assignment)
-      // console.log(dbKids.dataValues.Timedhws[0].dataValues.minutes_required)
-      console.log(dbKids.dataValues.Timedhws[0]);
-      console.log(dbKids.dataValues.Taskedhws[0]);
-      console.log(dbKids.dataValues.Chores[0]);
-      console.log(dbKids.dataValues.Dietaries[0]);
-      // console.log(dbKids)
-      // console.log(dbKids.dataValues.Timedhws.Timedhw)
-      res.render("individualkid", {
-        Kid: dbKids
-      });
-    });
-  });
+  // app.get("/api/kids/:id", function(req, res) {
+  //   db.Kids.findOne({
+  //     where: {
+  //       id: req.params.id
+  //     },
+  //     include: [db.Timedhw, db.Taskedhw, db.Chores, db.Dietary]
+  //   }).then(function(dbKids) {
+  //     // console.log(dbKids.dataValues.Timedhws[0].dataValues.assignment)
+  //     // console.log(dbKids.dataValues.Timedhws[0].dataValues.minutes_required)
+  //     console.log(dbKids.dataValues.Timedhws[0]);
+  //     console.log(dbKids.dataValues.Taskedhws[0]);
+  //     console.log(dbKids.dataValues.Chores[0]);
+  //     console.log(dbKids.dataValues.Dietaries[0]);
+  //     // console.log(dbKids)
+  //     // console.log(dbKids.dataValues.Timedhws.Timedhw)
+  //     res.render("individualkid", {
+  //       Kid: dbKids
+  //     });
+  //   });
+  // });
   app.get("/api/Timedhw/", function (req, res) {
     db.Timedhw.findAll({})
     .then(function(dbTimedhw) {

@@ -105,6 +105,21 @@ module.exports = function (app) {
   });
   });
 
+  //check to see if user is logged in, if so load individualkid.handlebars
+  app.get("/kids/:id", checkAuthenticated, function(req, res) {
+    res.sendFile(path.join(__dirname, "..views/individualkid.handlebars"));
+    db.Kids.findOne({
+      where: {
+        id: req.params.id
+      },
+      include: [db.Timedhw, db.Taskedhw, db.Chores, db.Dietary]
+    }).then(function(dbKids) {
+      res.render("individualkid", {
+        Kid: dbKids
+      });
+    });
+  });
+
   // Load example page and pass in an example by id
   app.get("/example/:id", function (req, res) {
     db.Example.findOne({ where: { id: req.params.id } }).then(function (dbExample) {
