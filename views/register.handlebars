@@ -19,6 +19,9 @@
             <label class="label" for="rPassword">Re-enter Password</label><input type="password" name="rPassword">
             <button type="submit" class="btn btn-primary">Submit</button>
             <div class="notUser label"><p><a href="/">Back to login</a></p></div>
+            {{#if error}}
+    <div class="alert alert-danger">{{error}}{{msg}}</div>
+{{/if}}
             </form>
         </div>
       </div>

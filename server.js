@@ -3,16 +3,35 @@ var express = require("express");
 var exphbs = require("express-handlebars");
 var bodyParser = require("body-parser");
 var path = require('path');
+var passport = require('passport');
+var flash = require('express-flash');
+var session = require('express-session');
+var initializePassport = require("./config/passport-config");
 
 var db = require("./models");
 
 var app = express();
 var PORT = process.env.PORT || 3000;
 
+var methodOverride = require('method-override');
+app.use(methodOverride('_method'));
+
 // Middleware
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
+
+app.use(flash());
+app.use(session({
+  secret: process.env.SECRET,
+  resave: false,
+  saveUninitialized: false
+
+}));
+
+initializePassport();
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Handlebars
 app.engine(
@@ -35,7 +54,6 @@ if (process.env.NODE_ENV === "test") {
   syncOptions.force = true;
 }
 
-// app.listen(PORT, console.log(`Server running on ${PORT}`));
 
 // Starting the server, syncing our models ------------------------------------/
 db.sequelize.sync(syncOptions).then(function() {
