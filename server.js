@@ -21,17 +21,19 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 
+
 app.use(flash());
 app.use(session({
   secret: process.env.SECRET,
   resave: false,
-  saveUninitialized: false
+  saveUninitialized: false,
 
 }));
 
 initializePassport();
 app.use(passport.initialize());
 app.use(passport.session());
+
 
 // Handlebars
 app.engine(

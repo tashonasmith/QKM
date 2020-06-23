@@ -37,14 +37,7 @@ module.exports = function (app) {
     failureFlash: true
   }));
 
-    //Load index/landing page
-    // app.get("/index", function(req, res) {
-    //     res.sendFile(path.join(__dirname, "../views/layouts/index.html"));
-    // });
-
-    
-
-
+  
   function checkAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
       return next();
@@ -96,13 +89,14 @@ module.exports = function (app) {
   });
 
   //check to see if user is logged in, if so load index.html
-  app.get("/index", checkAuthenticated, function (req, res) {
+  app.get("/index", checkAuthenticated, async function (req, res) {
     res.sendFile(path.join(__dirname, "../views/index.html"));
-    db.Kids.findAll({}).then(function(dbKids) {
+    /* db.Kids.findAll({}).then(function(dbKids) {
       res.render("home", {
           Kids: dbKids
       });
-  });
+  }); */
+  console.log(await req.user());
   });
 
   // Load example page and pass in an example by id
