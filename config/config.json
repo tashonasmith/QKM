@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "root",
-    "password": "Scat1982Pack",
+    "password": "",
     "database": "qkm",
     "host": "localhost",
     "dialect": "mysql"
