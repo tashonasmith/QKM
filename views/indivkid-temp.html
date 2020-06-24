@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css">
+    <!-- css stylesheet link -->
+    <link rel="stylesheet" type="text/css" href="../public/styles/styles.css" media="screen" title="no title" charset="utf-8">
+
+    <!-- font links -->
+    <link href="https://fonts.googleapis.com/css2?family=Suez+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
+
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+
+
+    <title>Indiv Kid</title>
+
+</head>
+
+<body>
+    <div class="container-fluid">
+
+        <div id="kidinfo" class="container">
+        </div>
+
+        <h1>{{Kid.dataValues.title}}</h1>
+
+        <!--Kid Name, template info-->
+        $("#new-kid").append(kidinfo);<br>
+
+        <img id="avatar" src="https://api.adorable.io/avatars/150/{{Kid.dataValues.id}}.png" alt="kidavi">
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6">
+            <div id="timed-hw" class="category">
+                <h2>Timed Homework</h2>
+                <ul>
+                    {{#each Kid.dataValues.Timedhws}}
+                    <li>
+                        Assignment:
+                        <p>{{dataValues.assignment}}</p>
+                        Minutes Required:
+                        <p>{{dataValues.minutes_required}}</p>
+                        <button data-timedhwid="{{this.dataValues.id}}" type="submit" class="Timedhws-done">Done</button>
+                    </li>
+                    {{/each}}
+                </ul>
+
+                <form class="twinput" data-twuser="{{Kid.dataValues.UserId}}" data-twkid="{{Kid.dataValues.id}}" action="/api/user/{{Kid.dataValues.UserId}}/kid/{{Kid.dataValues.id}}/Timedhw" method="POST">
+                    <input type="text" name="assignment" id="assignment" placeholder="Add timed homework">
+                    <input type="number" name="minutes_required" id="minutes_required" placeholder="# of minutes required">
+
+                    <button type="submit" class="submit-timedhw">Add</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div id="tasked-hw" class="category">
+                <h2>Tasked Homework</h2>
+                <ul>
+                    {{#each Kid.dataValues.Taskedhws}}
+                    <li>
+                        Subject:
+                        <p>{{dataValues.subject}}</p>
+                        Assignment:
+                        <p>{{dataValues.assignment}}</p>
+                        <button data-taskedhwid="{{this.dataValues.id}}" type="submit" class="taskedhw-done">Done</button>
+                        <!--needed for each task-->
+                    </li>
+                    {{/each}}
+                </ul>
+
+                <form class="taskedhwinput" data-taskeduser="{{Kid.dataValues.UserId}}" data-taskedkid="{{Kid.dataValues.id}}" action="/api/user/{{Kid.dataValues.UserId}}/kid/{{Kid.dataValues.id}}/Taskedhw" method="POST">
+                    <!--action will need to be updated-->
+                    <input type="text" name="add-subject-hw" id="add-subject-hw" placeholder="Add homework subject">
+                    <input type="text" name="add-tasked-hw" id="add-tasked-hw" placeholder="Add homework task">
+
+                    <button type="submit" class="submit-taskedhw">Add</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6">
+            <div id="chores" class="category">
+                <h2>Chores</h2>
+                <ul>
+                    {{#each Kid.dataValues.Chores}}
+                    <li>
+                        Chore:
+                        <p>{{dataValues.chore}}</p>
+                        <button data-choreid="{{this.dataValues.id}}" type="submit" class="chore-done">Done</button>
+                        <!--needed for each task-->
+                    </li>
+                    {{/each}}
+                </ul>
+
+                <form class="choreinput" action="/api/user/{{Kid.dataValues.UserId}}/kid/{{Kid.dataValues.id}}/Chores" method="POST">
+                    <!--action will need to be updated-->
+                    <input type="text" name="chore" id="chore" placeholder="Add a chore">
+
+                    <button type="submit" id="submit-chore">Add</button>
+                </form>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div id="dietary" class="category">
+                <h2>Dietary</h2>
+                <ul>
+                    {{#each Kid.dataValues.Dietaries}}
+                    <li>
+                        Food:
+                        <p>{{dataValues.food}}</p>
+                        Servings Required:
+                        <p>{{dataValues.servings_required}}</p>
+                        <!--This is needed for each food item-->
+                        <button data-foodid="{{this.dataValues.id}}" type="submit" class="food-done">All required servings eaten!</button>
+                    </li>
+                    {{/each}}
+                </ul>
+
+                <form class="dietaryinput" action="/api/user/{{Kid.dataValues.UserId}}/kid/{{Kid.dataValues.id}}/Dietary" method="POST">
+                    <!--action will need to be updated-->
+                    <input type="text" name="food" id="food" placeholder="Add a Food Type">
+                    <input type="number" name="servings_required" id="servings_required" placeholder="# of servings required">
+
+                    <button type="submit" id="submit-food">Add</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <script type="text/javascript">
+        $(".Timedhws-done").on("click", function(event) {
+            event.preventDefault();
+            var id = $(this).data("timedhwid");
+            console.log(id);
+            console.log(this);
+
+            $.ajax({
+                method: "DELETE",
+                url: "/api/kids/" + {
+                    {
+                        Kid.dataValues.id
+                    }
+                } + "/Timedhw/" + id
+            }).then(
+                function() {
+                    console.log("Timedhw completed ", id);
+                    location.reload();
+                });
+        });
+        $(".taskedhw-done").on("click", function(event) {
+            event.preventDefault();
+            var id = $(this).data("taskedhwid");
+            console.log(id);
+            console.log(this);
+
+            $.ajax({
+                method: "DELETE",
+                url: "/api/kids/" + {
+                    {
+                        Kid.dataValues.id
+                    }
+                } + "/Taskedhw/" + id
+            }).then(
+                function() {
+                    console.log("Taskedhw completed ", id);
+                    location.reload();
+                });
+        });
+        $(".chore-done").on("click", function(event) {
+            event.preventDefault();
+            var id = $(this).data("choreid");
+            console.log(id);
+            console.log(this);
+
+            $.ajax({
+                method: "DELETE",
+                url: "/api/kids/" + {
+                    {
+                        Kid.dataValues.id
+                    }
+                } + "/Chores/" + id
+            }).then(
+                function() {
+                    console.log("Chore completed ", id);
+                    location.reload();
+                });
+        });
+        $(".food-done").on("click", function(event) {
+            event.preventDefault();
+            var id = $(this).data("foodid");
+            console.log(id);
+            console.log(this);
+
+            $.ajax({
+                method: "DELETE",
+                url: "/api/kids/" + {
+                    {
+                        Kid.dataValues.id
+                    }
+                } + "/Dietary/" + id
+            }).then(
+                function() {
+                    console.log("All Servings Eaten ", id);
+                    location.reload();
+                });
+        });
+        $(function() {
+            $(".twinput").submit(function() {
+                $.post("/api/user/" + {
+                    {
+                        Kid.dataValues.UserId
+                    }
+                } + "/kid/" + {
+                    {
+                        Kid.dataValues.id
+                    }
+                } + "/Timedhw", function() {
+                    window.location = "/user/" + {
+                        {
+                            Kid.dataValues.UserId
+                        }
+                    } + "/kid/" + {
+                        {
+                            Kid.dataValues.id
+                        }
+                    };
+                });
+                return true;
+            });
+        });
+        $(function() {
+            $(".taskedhwinput").submit(function() {
+                $.post("/api/user/" + {
+                    {
+                        Kid.dataValues.UserId
+                    }
+                } + "/kid/" + {
+                    {
+                        Kid.dataValues.id
+                    }
+                } + "/Taskedhw", function() {
+                    window.location = "/user/" + {
+                        {
+                            Kid.dataValues.UserId
+                        }
+                    } + "/kid/" + {
+                        {
+                            Kid.dataValues.id
+                        }
+                    };
+                });
+                return true;
+            });
+        });
+        $(function() {
+            $(".choreinput").submit(function() {
+                $.post("/api/user/" + {
+                    {
+                        Kid.dataValues.UserId
+                    }
+                } + "/kid/" + {
+                    {
+                        Kid.dataValues.id
+                    }
+                } + "/Chores", function() {
+                    window.location = "/user/" + {
+                        {
+                            Kid.dataValues.UserId
+                        }
+                    } + "/kid/" + {
+                        {
+                            Kid.dataValues.id
+                        }
+                    };
+                });
+                return true;
+            });
+        });
+        $(function() {
+            $(".dietaryinput").submit(function() {
+                $.post("/api/user/" + {
+                    {
+                        Kid.dataValues.UserId
+                    }
+                } + "/kid/" + {
+                    {
+                        Kid.dataValues.id
+                    }
+                } + "/Dietary", function() {
+                    window.location = "/user/" + {
+                        {
+                            Kid.dataValues.UserId
+                        }
+                    } + "/kid/" + {
+                        {
+                            Kid.dataValues.id
+                        }
+                    };
+                });
+                return true;
+            });
+        });
+    </script>
+
+</body>
+
+</html>
