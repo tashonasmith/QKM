@@ -10,10 +10,14 @@
     margin-left: 20%;
 }
 
+
+/* styling for indivkid-temp.html BEGIN */
+
 .category {
     border-radius: 50px;
-    border-style: solid;
-    text-align: center;
+    border-style: hidden;
+    background-color: rgb(131, 213, 216);
+    padding: 2px 0px 16px 48px;
 }
 
 
@@ -47,7 +51,7 @@ h1 {
 }
 
 h2 {
-    margin: 64px 0px 24px 0px;
+    margin: 48px 0px 24px 0px;
     /* font-family: 'Raleway', sans-serif; */
     /* font-family: 'Luckiest Guy', cursive; */
     font-family: 'Segoe UI Black', 'Gill Sans Ultra Bold', sans-serif;
