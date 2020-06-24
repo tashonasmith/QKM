@@ -94,22 +94,27 @@ module.exports = function(app) {
 
     //check to see if user is logged in, if so load index.html
     app.get("/index", checkAuthenticated, async function(req, res) {
-        res.render('index');
-        // res.sendFile(path.join(__dirname, "../views/index"));
-        /* db.Kids.findAll({}).then(function(dbKids) {
-      res.render("home", {
-          Kids: dbKids
+        var userId = await req.user()
+      db.Kids.findAll({
+          where: {
+            UserId: userId
+          },
+          include: [db.Users]
+      }).then(function(dbKids) {
+      res.render("index", {
+          Kids: dbKids,
+          UserId: userId
       });
-  }); */
+  }); 
         console.log(await req.user());
     });
 
     //check to see if user is logged in, if so load individualkid.handlebars
-    app.get("/kids/:id", checkAuthenticated, function(req, res) {
-        res.sendFile(path.join(__dirname, "..views/individualkid.handlebars"));
+    app.get("/user/:userid/kid/:kidid", checkAuthenticated, function(req, res) {
+        // res.sendFile(path.join(__dirname, "..views/individualkid.handlebars"));
         db.Kids.findOne({
             where: {
-                id: req.params.id
+                id: req.params.kidid
             },
             include: [db.Timedhw, db.Taskedhw, db.Chores, db.Dietary]
         }).then(function(dbKids) {

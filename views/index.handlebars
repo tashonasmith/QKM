@@ -7,34 +7,34 @@
 
         <h1>QKM</h1>
         <h5>Quarantine Kids Manager</h5>
-        <h2>My Kids</h2>
+        
 
         <div class="row">
             <div class="col-lg-12">
-                <!-- circle placeholder 1 -->
-                <img src="https://api.adorable.io/avatars/285/{{Kid.dataValues.id}}.png alt=!" alt="avatar" class="adorableav">
-              <a href="/individualkid">Link to individual kid page</a> 
+               
             </div>
-            <p>First time user? Introduce us to your kids!</p>
-                 <form action="/api/newKid/" id="kid-form" method="POST"> 
-	<input type="text" name="newKid" id="new-kid" placeholder="What's your kid's name?">
-	<button type="submit" class="submit-newKid">Add</button>
-  </form>
-        </div>
+                <p>First time user? Introduce us to your kids!</p>
+                <form class="kidinput"> 
+	              <input type="text" name="title" id="title" placeholder="What's your kid's name?">
+	              <button type="submit" class="submit-newKid">Add</button>
+                </form>
+            </div>
 
         <div class="row">
             <div class="col-lg-12">
-                <!-- circle placeholder 2 -->
-                <img src="https://api.adorable.io/avatars/285/abott@adorable.png" alt="avatar" class="adorableav">
+                <div id="timed-hw">
+              <h2>Your Kids</h2>
+             <ul>
+              {{#each Users.Kids}}
+                <li>
+                  <a href="/user/{{User.dataValues.id}}/kid/{{User.Kids.dataValues.id}}">  
+                  <p>{{dataValues.title}}</p>  
+                  </a>
+               </li>
+              {{/each}}
+            </ul>
             </div>
         </div>
-        <div class="row">
-            <div class="col-lg-12">
-                <!-- circle placeholder 3 -->
-                <img src="https://api.adorable.io/avatars/285/abott@adorable.png" alt="avatar" class="adorableav">
-            </div>
-        </div>
-
     </div>
 <!--INSERT FORM FROM 15/14 AUTHORS JOIN BELOW-->
 <div class="container">
@@ -80,6 +80,21 @@
 		<script src="js/newkid.js" type="text/javascript"></script>
 
     <footer>keep those kids in line</footer>
+
+    <script>
+      $(function() {
+      $(".submit-newKid").on("click", function(event){
+          event.preventDefault()
+          var title = $("#title").val().trim()
+        $.post("/api/user/" + {{UserId}} + "/kids",{
+            title: title
+        },function(data) {
+        window.location = "/user/" + {{UserId}} + "/kid/" + data.id;
+      });
+      return true;
+      });
+    }); 
+    </script>
 
     <!-- <div class="container ">
         <div class="row mt-4 ">

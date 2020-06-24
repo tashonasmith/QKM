@@ -34,13 +34,35 @@ module.exports = function(app) {
     db.Users.findOne({
       where: {
         id: req.params.id
-      }
+      },
+      include: [db.Kids]
     }).then(function(dbUser) {
       res.json(dbUser);
       console.log(dbUser)
     });
   });
 
+  app.get("/api/user/:id/kids", function(req, res) {
+    db.Kids.findAll({
+      where: {
+        UserId: req.params.id
+      }
+    }).then(function(dbKids) {
+      res.json(dbKids);
+      console.log(dbKids)
+    });
+  });
+
+  app.get("/api/user/:userid/kid/:kidid", function(req, res) {
+    db.Kids.findOne({
+      where: {
+        id: req.params.kidid
+      }
+    }).then(function(dbKid) {
+      res.json(dbKid);
+      console.log(dbKid)
+    });
+  });
 
   app.get("/api/kid/:id", function(req, res) {
     db.Kids.findOne({
@@ -52,6 +74,8 @@ module.exports = function(app) {
       console.log(dbKid);
     });
   });
+
+  
 
   app.delete("/api/kids/:id/Timedhw/:timedhwid", function (req, res) {
     console.log(req.params.id)
@@ -107,7 +131,10 @@ module.exports = function(app) {
       UserId: req.params.userid,
       KidId: req.params.kidid 
     })
-    res.redirect("/user/:userid/kid/:kidid")
+    .then(function(dbKids) {
+      console.log(dbKids)
+      res.json(dbKids.dataValues)
+    })
   });
 
   app.post("/api/user/:userid/kid/:kidid/Taskedhw", function(req, res) {
@@ -119,7 +146,10 @@ module.exports = function(app) {
       UserId: req.params.userid,
       KidId: req.params.kidid 
     })
-    res.redirect("/user/:userid/kid/:kidid")
+    .then(function(dbKids) {
+      console.log(dbKids)
+      res.json(dbKids.dataValues)
+    })
   });
 
   app.post("/api/user/:userid/kid/:kidid/Chores", function(req, res) {
@@ -129,8 +159,10 @@ module.exports = function(app) {
       chore: req.body.chore,
       UserId: req.params.userid,
       KidId: req.params.kidid 
+    }).then(function(dbKids) {
+      console.log(dbKids)
+      res.json(dbKids.dataValues)
     })
-    res.redirect("/user/:userid/kid/:kidid")
   });
 
   app.post("/api/user/:userid/kid/:kidid/Dietary", function(req, res) {
@@ -142,7 +174,23 @@ module.exports = function(app) {
       UserId: req.params.userid,
       KidId: req.params.kidid 
     })
-    res.redirect("/user/:userid/kid/:kidid")
+    .then(function(dbKids) {
+      console.log(dbKids)
+      res.json(dbKids.dataValues)
+    })
+  });
+
+  app.post("/api/user/:userid/kids", function(req, res) {
+    console.log(req.body)
+    console.log(req.params.userid)
+    db.Kids.create({
+      title: req.body.title,
+      UserId: req.params.userid,
+    }).then(function(dbKids) {
+      console.log(dbKids)
+      res.json(dbKids.dataValues)
+    })
+    // res.redirect("/user/:userid/kid/:kidid")
   });
 
   app.get("/api/users/:userid/kids/:kidid/Timedhw", function(req, res) {
