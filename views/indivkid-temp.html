@@ -22,122 +22,121 @@
 </head>
 
 <body>
-    <div class="container-fluid">
+    <div class="container-fluid-indiv">
 
         <div id="kidinfo" class="container">
+
+            <h1>{{Kid.dataValues.title}}</h1>
+
+            <!--Kid Name, template info-->
+            $("#new-kid").append(kidinfo);<br>
+
+            <img id="avatar" src="https://api.adorable.io/avatars/150/{{Kid.dataValues.id}}.png" alt="kidavi">
+
         </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div id="timed-hw" class="category">
+                    <h2>Timed Homework</h2>
+                    <ul>
+                        {{#each Kid.dataValues.Timedhws}}
+                        <li>
+                            Assignment:
+                            <p>{{dataValues.assignment}}</p>
+                            Minutes Required:
+                            <p>{{dataValues.minutes_required}}</p>
+                            <button data-timedhwid="{{this.dataValues.id}}" type="submit" class="Timedhws-done">Done</button>
+                        </li>
+                        {{/each}}
+                    </ul>
 
-        <h1>{{Kid.dataValues.title}}</h1>
+                    <form class="twinput" data-twuser="{{Kid.dataValues.UserId}}" data-twkid="{{Kid.dataValues.id}}" action="/api/user/{{Kid.dataValues.UserId}}/kid/{{Kid.dataValues.id}}/Timedhw" method="POST">
+                        <input type="text" name="assignment" id="assignment" placeholder="Add timed homework">
+                        <input type="number" name="minutes_required" id="minutes_required" placeholder="# of minutes required">
 
-        <!--Kid Name, template info-->
-        $("#new-kid").append(kidinfo);<br>
+                        <button type="submit" class="submit-timedhw">Add</button>
+                    </form>
+                </div>
+            </div>
 
-        <img id="avatar" src="https://api.adorable.io/avatars/150/{{Kid.dataValues.id}}.png" alt="kidavi">
-    </div>
+            <div class="col-lg-6">
+                <div id="tasked-hw" class="category">
+                    <h2>Tasked Homework</h2>
+                    <ul>
+                        {{#each Kid.dataValues.Taskedhws}}
+                        <li>
+                            Subject:
+                            <p>{{dataValues.subject}}</p>
+                            Assignment:
+                            <p>{{dataValues.assignment}}</p>
+                            <button data-taskedhwid="{{this.dataValues.id}}" type="submit" class="taskedhw-done">Done</button>
+                            <!--needed for each task-->
+                        </li>
+                        {{/each}}
+                    </ul>
 
-    <div class="row">
-        <div class="col-lg-6">
-            <div id="timed-hw" class="category">
-                <h2>Timed Homework</h2>
-                <ul>
-                    {{#each Kid.dataValues.Timedhws}}
-                    <li>
-                        Assignment:
-                        <p>{{dataValues.assignment}}</p>
-                        Minutes Required:
-                        <p>{{dataValues.minutes_required}}</p>
-                        <button data-timedhwid="{{this.dataValues.id}}" type="submit" class="Timedhws-done">Done</button>
-                    </li>
-                    {{/each}}
-                </ul>
+                    <form class="taskedhwinput" data-taskeduser="{{Kid.dataValues.UserId}}" data-taskedkid="{{Kid.dataValues.id}}" action="/api/user/{{Kid.dataValues.UserId}}/kid/{{Kid.dataValues.id}}/Taskedhw" method="POST">
+                        <!--action will need to be updated-->
+                        <input type="text" name="add-subject-hw" id="add-subject-hw" placeholder="Add homework subject">
+                        <input type="text" name="add-tasked-hw" id="add-tasked-hw" placeholder="Add homework task">
 
-                <form class="twinput" data-twuser="{{Kid.dataValues.UserId}}" data-twkid="{{Kid.dataValues.id}}" action="/api/user/{{Kid.dataValues.UserId}}/kid/{{Kid.dataValues.id}}/Timedhw" method="POST">
-                    <input type="text" name="assignment" id="assignment" placeholder="Add timed homework">
-                    <input type="number" name="minutes_required" id="minutes_required" placeholder="# of minutes required">
-
-                    <button type="submit" class="submit-timedhw">Add</button>
-                </form>
+                        <button type="submit" class="submit-taskedhw">Add</button>
+                    </form>
+                </div>
             </div>
         </div>
 
-        <div class="col-lg-6">
-            <div id="tasked-hw" class="category">
-                <h2>Tasked Homework</h2>
-                <ul>
-                    {{#each Kid.dataValues.Taskedhws}}
-                    <li>
-                        Subject:
-                        <p>{{dataValues.subject}}</p>
-                        Assignment:
-                        <p>{{dataValues.assignment}}</p>
-                        <button data-taskedhwid="{{this.dataValues.id}}" type="submit" class="taskedhw-done">Done</button>
-                        <!--needed for each task-->
-                    </li>
-                    {{/each}}
-                </ul>
+        <div class="row">
+            <div class="col-lg-6">
+                <div id="chores" class="category">
+                    <h2>Chores</h2>
+                    <ul>
+                        {{#each Kid.dataValues.Chores}}
+                        <li>
+                            Chore:
+                            <p>{{dataValues.chore}}</p>
+                            <button data-choreid="{{this.dataValues.id}}" type="submit" class="chore-done">Done</button>
+                            <!--needed for each task-->
+                        </li>
+                        {{/each}}
+                    </ul>
 
-                <form class="taskedhwinput" data-taskeduser="{{Kid.dataValues.UserId}}" data-taskedkid="{{Kid.dataValues.id}}" action="/api/user/{{Kid.dataValues.UserId}}/kid/{{Kid.dataValues.id}}/Taskedhw" method="POST">
-                    <!--action will need to be updated-->
-                    <input type="text" name="add-subject-hw" id="add-subject-hw" placeholder="Add homework subject">
-                    <input type="text" name="add-tasked-hw" id="add-tasked-hw" placeholder="Add homework task">
+                    <form class="choreinput" action="/api/user/{{Kid.dataValues.UserId}}/kid/{{Kid.dataValues.id}}/Chores" method="POST">
+                        <!--action will need to be updated-->
+                        <input type="text" name="chore" id="chore" placeholder="Add a chore">
 
-                    <button type="submit" class="submit-taskedhw">Add</button>
-                </form>
+                        <button type="submit" id="submit-chore">Add</button>
+                    </form>
+                </div>
             </div>
-        </div>
-    </div>
+            <div class="col-lg-6">
+                <div id="dietary" class="category">
+                    <h2>Dietary</h2>
+                    <ul>
+                        {{#each Kid.dataValues.Dietaries}}
+                        <li>
+                            Food:
+                            <p>{{dataValues.food}}</p>
+                            Servings Required:
+                            <p>{{dataValues.servings_required}}</p>
+                            <!--This is needed for each food item-->
+                            <button data-foodid="{{this.dataValues.id}}" type="submit" class="food-done">All required servings eaten!</button>
+                        </li>
+                        {{/each}}
+                    </ul>
 
-    <div class="row">
-        <div class="col-lg-6">
-            <div id="chores" class="category">
-                <h2>Chores</h2>
-                <ul>
-                    {{#each Kid.dataValues.Chores}}
-                    <li>
-                        Chore:
-                        <p>{{dataValues.chore}}</p>
-                        <button data-choreid="{{this.dataValues.id}}" type="submit" class="chore-done">Done</button>
-                        <!--needed for each task-->
-                    </li>
-                    {{/each}}
-                </ul>
+                    <form class="dietaryinput" action="/api/user/{{Kid.dataValues.UserId}}/kid/{{Kid.dataValues.id}}/Dietary" method="POST">
+                        <!--action will need to be updated-->
+                        <input type="text" name="food" id="food" placeholder="Add a Food Type">
+                        <input type="number" name="servings_required" id="servings_required" placeholder="# of servings required">
 
-                <form class="choreinput" action="/api/user/{{Kid.dataValues.UserId}}/kid/{{Kid.dataValues.id}}/Chores" method="POST">
-                    <!--action will need to be updated-->
-                    <input type="text" name="chore" id="chore" placeholder="Add a chore">
-
-                    <button type="submit" id="submit-chore">Add</button>
-                </form>
-            </div>
-        </div>
-        <div class="col-lg-6">
-            <div id="dietary" class="category">
-                <h2>Dietary</h2>
-                <ul>
-                    {{#each Kid.dataValues.Dietaries}}
-                    <li>
-                        Food:
-                        <p>{{dataValues.food}}</p>
-                        Servings Required:
-                        <p>{{dataValues.servings_required}}</p>
-                        <!--This is needed for each food item-->
-                        <button data-foodid="{{this.dataValues.id}}" type="submit" class="food-done">All required servings eaten!</button>
-                    </li>
-                    {{/each}}
-                </ul>
-
-                <form class="dietaryinput" action="/api/user/{{Kid.dataValues.UserId}}/kid/{{Kid.dataValues.id}}/Dietary" method="POST">
-                    <!--action will need to be updated-->
-                    <input type="text" name="food" id="food" placeholder="Add a Food Type">
-                    <input type="number" name="servings_required" id="servings_required" placeholder="# of servings required">
-
-                    <button type="submit" id="submit-food">Add</button>
-                </form>
+                        <button type="submit" id="submit-food">Add</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
     </div>
-
     <script type="text/javascript">
         $(".Timedhws-done").on("click", function(event) {
             event.preventDefault();
