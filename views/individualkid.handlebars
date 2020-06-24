@@ -17,7 +17,7 @@
       {{/each}}
   </ul>
 
-  <form class="twinput" data-twuser="{{Kid.dataValues.UserId}}" data-twkid="{{Kid.dataValues.id}}" action="/api/user/{{Kid.dataValues.UserId}}/kid/{{Kid.dataValues.id}}/Timedhw" method="POST"> 
+  <form class="twinput"> 
 	<input type="text" name="assignment" id="assignment" placeholder="Add timed homework">
   <input type="number" name="minutes_required" id="minutes_required" placeholder="# of minutes required">
 
@@ -37,7 +37,7 @@
       {{/each}}
   </ul>
 
-  <form class="taskedhwinput" data-taskeduser="{{Kid.dataValues.UserId}}" data-taskedkid="{{Kid.dataValues.id}}" action="/api/user/{{Kid.dataValues.UserId}}/kid/{{Kid.dataValues.id}}/Taskedhw" method="POST"> <!--action will need to be updated-->
+  <form class="taskedhwinput"> <!--action will need to be updated-->
   <input type="text" name="add-subject-hw" id="add-subject-hw" placeholder="Add homework subject">
 	<input type="text" name="add-tasked-hw" id="add-tasked-hw" placeholder="Add homework task">
 
@@ -56,10 +56,10 @@
       {{/each}}
   </ul>
 
-  <form class="choreinput" action="/api/user/{{Kid.dataValues.UserId}}/kid/{{Kid.dataValues.id}}/Chores" method="POST"> <!--action will need to be updated-->
+  <form class="choreinput"> <!--action will need to be updated-->
 	<input type="text" name="chore" id="chore" placeholder="Add a chore">
 
-	<button type="submit" id="submit-chore">Add</button>
+	<button type="submit" class="submit-chore">Add</button>
   </form>
 </div>  
 
@@ -76,11 +76,11 @@
       {{/each}}      
   </ul>
 
-  <form class="dietaryinput" action="/api/user/{{Kid.dataValues.UserId}}/kid/{{Kid.dataValues.id}}/Dietary" method="POST"> <!--action will need to be updated-->
+  <form class="dietaryinput"> <!--action will need to be updated-->
 	  <input type="text" name="food" id="food" placeholder="Add a Food Type">
     <input type="number" name="servings_required" id="servings_required" placeholder="# of servings required">
 
-	  <button type="submit" id="submit-food">Add</button>
+	  <button type="submit" class="submit-food">Add</button>
   </form>
 </div>  
 
@@ -145,36 +145,61 @@
         location.reload();
       });
     });
-    $(function() {
-      $(".twinput").submit(function(){
-        $.post("/api/user/" + {{Kid.dataValues.UserId}} + "/kid/" + {{Kid.dataValues.id}} + "/Timedhw", function() {
-        window.location = "/user/" + {{Kid.dataValues.UserId}} + "/kid/" + {{Kid.dataValues.id}};
+    
+      $(".submit-taskedhw").on("click", function(event){
+        event.preventDefault()
+        var subject = $("#add-subject-hw").val().trim()
+        var assignment = $("#add-tasked-hw").val().trim()
+        $.post("/api/user/" + {{Kid.dataValues.UserId}} + "/kid/" + {{Kid.dataValues.id}} + "/Taskedhw", {
+          subject: subject,
+          assignment: assignment
+        },
+        function() {
+        location.reload()
       });
-      return true;
       });
-    });
-    $(function() {
-      $(".taskedhwinput").submit(function(){
-        $.post("/api/user/" + {{Kid.dataValues.UserId}} + "/kid/" + {{Kid.dataValues.id}} + "/Taskedhw", function() {
-        window.location = "/user/" + {{Kid.dataValues.UserId}} + "/kid/" + {{Kid.dataValues.id}};
+   
+    
+      $(".submit-timedhw").on("click", function(event){
+        console.log("Timedhw")
+        event.preventDefault()
+        var assignment = $("#assignment").val().trim()
+        var minutes_required = $("#minutes_required").val().trim()
+        $.post("/api/user/" + {{Kid.dataValues.UserId}} + "/kid/" + {{Kid.dataValues.id}} + "/Timedhw", {
+          assignment: assignment,
+          minutes_required: minutes_required
+        },
+        function() {
+        location.reload()
       });
-      return true;
+      
       });
-    });
-    $(function() {
-      $(".choreinput").submit(function(){
-        $.post("/api/user/" + {{Kid.dataValues.UserId}} + "/kid/" + {{Kid.dataValues.id}} + "/Chores", function() {
-        window.location = "/user/" + {{Kid.dataValues.UserId}} + "/kid/" + {{Kid.dataValues.id}};
+    
+    
+      $(".submit-chore").on("click", function(event){
+        event.preventDefault()
+        var chore = $("#chore").val().trim()
+        $.post("/api/user/" + {{Kid.dataValues.UserId}} + "/kid/" + {{Kid.dataValues.id}} + "/Chores", {
+          chore: chore
+        }, 
+        function() {
+        location.reload()
       });
-      return true;
+      ;
       });
-    });
-    $(function() {
-      $(".dietaryinput").submit(function(){
-        $.post("/api/user/" + {{Kid.dataValues.UserId}} + "/kid/" + {{Kid.dataValues.id}} + "/Dietary", function() {
-        window.location = "/user/" + {{Kid.dataValues.UserId}} + "/kid/" + {{Kid.dataValues.id}};
+    
+      $(".submit-food").on("click", function(event){
+        event.preventDefault();
+        var food = $("#food").val().trim()
+        var servings_required = $("#servings_required").val().trim()
+        $.post("/api/user/" + {{Kid.dataValues.UserId}} + "/kid/" + {{Kid.dataValues.id}} + "/Dietary", {
+          food: food,
+          servings_required: servings_required
+        }, 
+        function() {
+        location.reload()
       });
-      return true;
+      
       });
-    });
+    
 </script>
