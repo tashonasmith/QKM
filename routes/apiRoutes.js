@@ -2,26 +2,6 @@ var db = require("../models");
 
 
 module.exports = function(app) {
-  // app.get("/api/kids/:id", function(req, res) {
-  //   db.Kids.findOne({
-  //     where: {
-  //       id: req.params.id
-  //     },
-  //     include: [db.Timedhw, db.Taskedhw, db.Chores, db.Dietary]
-  //   }).then(function(dbKids) {
-  //     // console.log(dbKids.dataValues.Timedhws[0].dataValues.assignment)
-  //     // console.log(dbKids.dataValues.Timedhws[0].dataValues.minutes_required)
-  //     console.log(dbKids.dataValues.Timedhws[0]);
-  //     console.log(dbKids.dataValues.Taskedhws[0]);
-  //     console.log(dbKids.dataValues.Chores[0]);
-  //     console.log(dbKids.dataValues.Dietaries[0]);
-  //     // console.log(dbKids)
-  //     // console.log(dbKids.dataValues.Timedhws.Timedhw)
-  //     res.render("individualkid", {
-  //       Kid: dbKids
-  //     });
-  //   });
-  // });
   app.get("/api/Timedhw/", function (req, res) {
     db.Timedhw.findAll({})
     .then(function(dbTimedhw) {
@@ -29,6 +9,15 @@ module.exports = function(app) {
       console.log(dbTimedhw);
     })
   });
+
+  app.get("/api/Taskedhw/", function (req, res) {
+    db.Timedhw.findAll({})
+    .then(function(dbTaskedhw) {
+      res.json(dbTaskedhw);
+      console.log(dbTaskedhw);
+    })
+  });
+
   app.get("/api/Timedhw/:id", function (req, res) {
     db.Timedhw.findAll({
       where: {
@@ -40,6 +29,30 @@ module.exports = function(app) {
       console.log(dbTimedhwid);
     })
   });
+
+  app.get("/api/user/:id", function(req, res) {
+    db.Users.findOne({
+      where: {
+        id: req.params.id
+      }
+    }).then(function(dbUser) {
+      res.json(dbUser);
+      console.log(dbUser)
+    });
+  });
+
+
+  app.get("/api/kid/:id", function(req, res) {
+    db.Kids.findOne({
+      where: {
+        id: req.params.id
+      }
+    }).then(function(dbKid) {
+      res.json(dbKid);
+      console.log(dbKid);
+    });
+  });
+
   app.delete("/api/kids/:id/Timedhw/:timedhwid", function (req, res) {
     console.log(req.params.id)
     db.Timedhw.destroy({
@@ -51,6 +64,7 @@ module.exports = function(app) {
       console.log("Successfully deleted")
     });
   }); 
+
   app.delete("/api/kids/:id/Taskedhw/:taskedhwid", function (req, res) {
     db.Taskedhw.destroy({
       where: {
@@ -61,6 +75,7 @@ module.exports = function(app) {
       console.log("Task successfully deleted")
     });
   });
+
   app.delete("/api/kids/:id/Chores/:choreid", function (req, res) {
     db.Chores.destroy({
       where: {
@@ -71,6 +86,7 @@ module.exports = function(app) {
       console.log("Chore successfully deleted")
     });
   });
+
   app.delete("/api/kids/:id/Dietary/:foodid", function (req, res) {
     db.Dietary.destroy({
       where: {
@@ -81,15 +97,63 @@ module.exports = function(app) {
       console.log("Food successfully deleted")
     });
   });
-  app.post("/api/users/:userid/kids/:kidid/Timedhw", function(req, res) {
+
+  app.post("/api/user/:userid/kid/:kidid/Timedhw", function(req, res) {
     console.log(req.body)
+    console.log(req.params.userid)
     db.Timedhw.create({
       assignment: req.body.assignment,
       minutes_required: req.body.minutes_required,
-    }).then(function(dbTimedhw) {
-      res.json(dbTimedhw);
-    });
+      UserId: req.params.userid,
+      KidId: req.params.kidid 
+    })
+    res.redirect("/user/:userid/kid/:kidid")
   });
+
+  app.post("/api/user/:userid/kid/:kidid/Taskedhw", function(req, res) {
+    console.log(req.body)
+    console.log(req.params.userid)
+    db.Taskedhw.create({
+      subject: req.body.subject,
+      assignment: req.body.assignment,
+      UserId: req.params.userid,
+      KidId: req.params.kidid 
+    })
+    res.redirect("/user/:userid/kid/:kidid")
+  });
+
+  app.post("/api/user/:userid/kid/:kidid/Chores", function(req, res) {
+    console.log(req.body)
+    console.log(req.params.userid)
+    db.Chores.create({
+      chore: req.body.chore,
+      UserId: req.params.userid,
+      KidId: req.params.kidid 
+    })
+    res.redirect("/user/:userid/kid/:kidid")
+  });
+
+  app.post("/api/user/:userid/kid/:kidid/Dietary", function(req, res) {
+    console.log(req.body)
+    console.log(req.params.userid)
+    db.Dietary.create({
+      food: req.body.food,
+      servings_required: req.body.servings_required,
+      UserId: req.params.userid,
+      KidId: req.params.kidid 
+    })
+    res.redirect("/user/:userid/kid/:kidid")
+  });
+
+  app.get("/api/users/:userid/kids/:kidid/Timedhw", function(req, res) {
+    db.Timedhw.findAll({
+      where: {
+        KidId: req.params.kidid
+      },
+      include: [db.Users]
+    }).then(function(dbTimedhw) {
+      res.json(dbTimedhw)
+      console.log(dbTimedhw);
+    })
+    })
 }
-
-
