@@ -15,17 +15,17 @@
         <div class="row">
 
             <div class="col-lg-12">
-                <!-- circle placeholder 1 -->
+                {{!-- <!-- circle placeholder 1 -->
                 <img src="https://api.adorable.io/avatars/285/{{Kid.dataValues.id}}.png alt=!" alt="avatar" class="adorableav">
 
               <a href="/indivkid-temp.html">Link to individual kid page</a> 
-           <p><a href="/register">Not registered? Sign up here</a></p>
+           <p><a href="/register">Not registered? Sign up here</a></p> --}}
 
             <p>First time user? Introduce us to your kids!</p>
 
-                 <form action="/api/newKid/" id="kid-form" method="POST"> 
+                 <form action="/api/kids/" id="kid-form" method="POST"> 
 	<input type="text" name="newKid" id="new-kid" placeholder="What's your kid's name?">
-	<button type="submit" class="submit-newKid">Add</button>
+	<button type="submit" class="submit-newKid">Add Kid</button>
   </form>
  </div>
         </div>
@@ -76,7 +76,7 @@
 									<td colspan="4">
 										<input placeholder="Enter a name" id="author-name" type="text" />
 									</td>
-									<td><button type="submit" class="btn btn-success">Create Author</button>
+									<td><button type="submit" class="btn btn-success">New Kid</button>
 									</td>
 								</form>
 							</tr>
@@ -87,7 +87,7 @@
 		</div>
 		</d>
 		<!-- Custom Script -->
-		<script src="js/newkid.js" type="text/javascript"></script>
+		<script src="/js/newkid.js" type="text/javascript"></script>
 
     <footer>keep those kids in line</footer>
 
