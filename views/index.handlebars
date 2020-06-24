@@ -1,28 +1,36 @@
 
-    <form action="/logout?_method=DELETE" method="POST">
+    
+    <div class="container-fluid-home">
+<form action="/logout?_method=DELETE" method="POST" class="logout-btn">
         <button type="submit">Log Out</button>
     </form>
 
-    <div class="container-fluid-home">
-
+<div class="brand">
         <h1>QKM</h1>
         <h5>Quarantine Kids Manager</h5>
-        <h2>My Kids</h2>
+     </div>  
+
+      <h2>My Kids</h2>
 
         <div class="row">
+
             <div class="col-lg-12">
                 <!-- circle placeholder 1 -->
                 <img src="https://api.adorable.io/avatars/285/{{Kid.dataValues.id}}.png alt=!" alt="avatar" class="adorableav">
-              <a href="/individualkid">Link to individual kid page</a> 
-            </div>
+
+              <a href="/indivkid-temp.html">Link to individual kid page</a> 
+           <p><a href="/register">Not registered? Sign up here</a></p>
+
             <p>First time user? Introduce us to your kids!</p>
+
                  <form action="/api/newKid/" id="kid-form" method="POST"> 
 	<input type="text" name="newKid" id="new-kid" placeholder="What's your kid's name?">
 	<button type="submit" class="submit-newKid">Add</button>
   </form>
+ </div>
         </div>
 
-        <div class="row">
+        {{!-- <div class="row">
             <div class="col-lg-12">
                 <!-- circle placeholder 2 -->
                 <img src="https://api.adorable.io/avatars/285/abott@adorable.png" alt="avatar" class="adorableav">
@@ -33,9 +41,11 @@
                 <!-- circle placeholder 3 -->
                 <img src="https://api.adorable.io/avatars/285/abott@adorable.png" alt="avatar" class="adorableav">
             </div>
-        </div>
+        </div> --}}
 
     </div>
+
+
 <!--INSERT FORM FROM 15/14 AUTHORS JOIN BELOW-->
 <div class="container">
 		<div class="row mt-4">
