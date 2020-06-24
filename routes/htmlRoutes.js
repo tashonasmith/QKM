@@ -88,14 +88,17 @@ module.exports = function (app) {
 
   });
 
-  //check to see if user is logged in, if so load index.html
+  
+
+  // //check to see if user is logged in, if so load index.html
+  // //need lines: app.get, res.send, console.log
   app.get("/index", checkAuthenticated, async function (req, res) {
     res.sendFile(path.join(__dirname, "../views/index.html"));
-    /* db.Kids.findAll({}).then(function(dbKids) {
-      res.render("home", {
-          Kids: dbKids
-      });
-  }); */
+  //   /* db.Kids.findAll({}).then(function(dbKids) {
+  //     res.render("home", {
+  //         Kids: dbKids
+  //     });
+  // }); */
   console.log(await req.user());
   });
 
