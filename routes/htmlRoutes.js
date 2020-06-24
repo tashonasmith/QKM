@@ -31,6 +31,10 @@ module.exports = function(app) {
         res.render('register');
     });
 
+    app.get("/individualkid", (req, res) => {
+        res.render('individualkid');
+    });
+
     app.post("/auth/login", passport.authenticate('local', {
         successRedirect: '/index',
         failureRedirect: '/',
