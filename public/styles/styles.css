@@ -11,6 +11,16 @@
 }
 
 
+/* styling for indivkid-temp.html BEGIN */
+
+.category {
+    border-radius: 50px;
+    border-style: hidden;
+    background-color: rgb(131, 213, 216);
+    padding: 2px 0px 16px 48px;
+}
+
+
 /* styling initially created for index.html BEGIN */
 
 .container-fluid {
@@ -26,10 +36,11 @@ body {
     margin: 24px;
 }
 
-.adorableav {
+.adorableav,
+#avatar {
     vertical-align: middle;
-    width: 50px;
-    height: 50px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
 }
 
@@ -40,7 +51,7 @@ h1 {
 }
 
 h2 {
-    margin: 64px 0px 24px 0px;
+    margin: 48px 0px 24px 0px;
     /* font-family: 'Raleway', sans-serif; */
     /* font-family: 'Luckiest Guy', cursive; */
     font-family: 'Segoe UI Black', 'Gill Sans Ultra Bold', sans-serif;
