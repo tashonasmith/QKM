@@ -20,12 +20,36 @@
     padding: 2px 0px 16px 48px;
 }
 
+.container-fluid-indiv {
+    margin-top: 48px;
+}
 
-/* styling initially created for index.html BEGIN */
+#kidinfo {
+    text-align: center;
+}
 
-.container-fluid {
+
+/* styling initially created for index/home BEGIN */
+
+.logout-btn {
+    text-align: right;
+    margin-right: 24px;
+    /* background-color: cadetblue;
+    border: none;
+    color: cadetblue;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px; */
+}
+
+.container-fluid-home,
+.brand {
     text-align: center;
     justify-content: space-between;
+    margin-top: 48px;
+    margin-bottom: 16px;
 }
 
 body {

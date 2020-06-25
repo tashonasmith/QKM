@@ -1,13 +1,22 @@
-<img src="" alt=""> <!--LOGO IMAGE-->
+{{!-- <img src="" alt=""> <!--LOGO IMAGE--> --}}
+<div class="container-fluid-indiv">
+        <div class="brand">
+            <h1>QKM</h1>
+            <h5>Quarantine Kids Manager</h5>
+        </div>
 
-<div id="kidinfo" class="container"></div>
-  <img id="avatar" src="https://api.adorable.io/avatars/150/{{Kid.dataValues.id}}.png" alt="kidavi">
+<div id="kidinfo" class="container">
+  
   <h1>{{Kid.dataValues.title}}</h1> 
   
   <!--Kid Name, template info-->
 
+<img id="avatar" src="https://api.adorable.io/avatars/150/{{Kid.dataValues.id}}.png" alt="kidavi">
+
 </div>
 
+ <div class="row">
+            <div class="col-lg-6">
 <div id="timed-hw">
   <h2>Timed Homework</h2>
   <ul>
@@ -27,8 +36,10 @@
 	<button type="submit" class="submit-timedhw">Add</button>
   </form>
 </div>  
+            </div>
 
-<div id="tasked-hw">
+ <div class="col-lg-6">
+                <div id="tasked-hw" class="category">
   <h2>Tasked Homework</h2>
   <ul>
         {{#each Kid.dataValues.Taskedhws}}
@@ -47,8 +58,13 @@
 	<button type="submit" class="submit-taskedhw">Add</button>
   </form>
 </div>  
+   </div>
+        </div>
 
-<div id="chores">
+
+  <div class="row">
+            <div class="col-lg-6">
+                <div id="chores" class="category">
   <h2>Chores</h2>
   <ul>
        {{#each Kid.dataValues.Chores}}
@@ -65,7 +81,10 @@
 	<button type="submit" class="submit-chore">Add</button>
   </form>
 </div>  
+ </div>
 
+  <div class="col-lg-6">
+                <div id="dietary" class="category">
 <div id="dietary">
   <h2>Dietary</h2>
   <ul>
@@ -86,6 +105,10 @@
 	  <button type="submit" class="submit-food">Add</button>
   </form>
 </div>  
+         </div>
+        </div>
+    </div>
+    </div>
 
 <script type="text/javascript">
     $(".Timedhws-done").on("click", function (event) {
@@ -206,3 +229,5 @@
       });
     
 </script>
+</body>
+
