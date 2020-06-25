@@ -8,6 +8,7 @@ var flash = require('express-flash');
 var session = require('express-session');
 var initializePassport = require("./config/passport-config");
 
+
 var db = require("./models");
 
 var app = express();
