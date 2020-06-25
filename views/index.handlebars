@@ -12,18 +12,18 @@
         <div class="row">
             <div class="col-lg-12">
                
-            </div>
+            </div id="kidinfo" style="text-align:center;">
                 <p>First time user? Introduce us to your kids!</p>
                 <form class="kidinput"> 
 	              <input type="text" name="title" id="title" placeholder="What's your kid's name?">
 	              <button type="submit" class="submit-newKid">Add</button>
                 </form>
             </div>
-
+        </div>
         <div class="row">
             <div class="col-lg-12">
                 <div id="timed-hw">
-              <h2>Your Kids</h2>
+              {{!-- <h2>Your Kids</h2> --}}
              <ul>
               {{#each Users.Kids}}
                 <li>
