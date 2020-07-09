@@ -4,6 +4,8 @@ Created as part of a team of 3 developers.  Quarantine Kids Manager is an app de
 
 Created using Express, Handlebars, Javascript, Passport, CSS, Bootstrap, SQL, Sequelize, and, AJAX. 
 
+Check out the deployed app [here](https://evening-reaches-49508.herokuapp.com/) 
+
 <img src="images/landing-page.png">
 
 <img src="images/individual-kid.png">
